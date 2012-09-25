@@ -12,8 +12,26 @@ int arr_len;
  * return its index. If not, return -1. So
  * indexOf(arr+2) should return 2...
  **/
-int indexOf(double* h){
+/*int indexOf(double* h){
+	for(int i=0; i<arr_len; i++){
+		if(arr + i == h){
+			return i;
+		}
+	}
 
+	return -1;
+}*/
+
+int indexOf(double* h){
+	int offset = (char*)h-(char*)arr;
+	int index = offset/sizeof(double);
+
+	if(index < 0 || index >= arr_len ||
+		(offset % sizeof(double)) != 0){
+		return -1;
+	} else {
+		return index;
+	}
 }
 
 int main(){
@@ -24,8 +42,7 @@ int main(){
 	cout << indexOf(&arr[15]) << endl;
 	cout << indexOf(&arr[1500]) << endl;
 	cout << indexOf(&test) << endl;
-	cout << indexOf(  (double*)(((char*)arr)+1)  ) << endl;
-
+	cout << indexOf((double*)(((char*)arr)+1) ) << endl;
 	/*
 	List* l = new LinkedList();
 
